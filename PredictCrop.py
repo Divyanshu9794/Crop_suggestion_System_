@@ -64,34 +64,15 @@ def predict_crop(n, p, k, temperature, humidity, ph, rainfall):
 #     st.write(fig)
 
 def main():
-    html_temp_vis = """
-    <div style="background-color:#025246 ;padding:10px;margin-bottom:30px">
-    <h2 style="color:white;text-align:center;"> Visualize Soil Properties </h2>
-    </div>
-    """
-
     html_temp_pred = """
     <div style="background-color:#025246 ;padding:10px;margin-bottom:30px">
     <h2 style="color:white;text-align:center;"> Which Crop To Cultivate? </h2>
     </div>
     """
 
-    # st.sidebar.title("Select One")
-    # select_type = st.sidebar.radio("", ('Predict Your Crop'))
-
-    
-    # if select_type == "Predict Your Crop":
     st.markdown(html_temp_pred, unsafe_allow_html=True)
     st.header("To predict your crop give values")
     
-        # n = st.slider('Nitrogen', 0, 140)
-        # p = st.slider('Phosphorus', 5, 145)
-        # k = st.slider('Potassium', 5, 205)
-        # temperature = st.slider('Temperature', 8.83, 43.68)
-        # humidity = st.slider('Humidity', 14.26, 99.98)
-        # ph = st.slider('pH', 3.50, 9.94)
-        # rainfall = st.slider('Rainfall', 20.21, 298.56)
-
     n = st.text_input('Nitrogen', '0')
     p = st.text_input('Phosphorus', '0')
     k = st.text_input('Potassium', '0')
@@ -100,7 +81,6 @@ def main():
     ph = st.text_input('pH', '0.0')
     rainfall = st.text_input('Rainfall', '0.0')
 
-    # Convert to desired types
     n = int(n)
     p = int(p)
     k = int(k)
@@ -109,39 +89,8 @@ def main():
     ph = float(ph)
     rainfall = float(rainfall)
 
-
-    crop_dict = {
-    1: 'rice',
-    2: 'maize',
-    3: 'jute',
-    4: 'cotton',
-    5: 'coconut',
-    6: 'papaya',
-    7: 'orange',
-    8: 'apple',
-    9: 'muskmelon',
-    10: 'watermelon',
-    11: 'grapes',
-    12: 'mango',
-    13: 'banana',
-    14: 'pomegranate',
-    15: 'lentil',
-    16: 'blackgram',
-    17: 'mungbean',
-    18: 'mothbeans',
-    19: 'pigeonpeas',
-    20: 'kidneybeans',
-    21: 'chickpea',
-    22: 'coffee'
-}
-        
-    if st.button("Predict your crop"):
+    try:
         output_number = predict_crop(n, p, k, temperature, humidity, ph, rainfall)
-        # Map the output number to the corresponding crop name
-        
-        print(output_number)
         st.success('The most suitable crop for your field is {}'.format(output_number))
-
-if __name__=='__main__':
-    main()
-    
+    except Exception as e:
+        st.error(f"An error occurred while predicting the crop: {e}")
