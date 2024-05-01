@@ -8,9 +8,11 @@ import pickle
 # import seaborn as sns
 # import matplotlib.pyplot as plt
 # import plotly.figure_factory as ff
-
-model = pickle.load(open('model.pkl', 'rb'))
-df = pd.read_csv("Crop_recommendation.csv")
+try:
+    model = pickle.load(open('model.pkl', 'rb'))
+    df = pd.read_csv("Crop_recommendation.csv")
+except Exception as e:
+    print("An error occurred:", e)
 
 converts_dict = {
     'Nitrogen': 'N',
